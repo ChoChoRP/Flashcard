@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cho 󠁯•󠁏󠁏 Flashcard</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- REVISI: Menambahkan font 'Inter' untuk tampilan yang lebih modern -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="menu-page">
+
+    <script>
+      (function() {
+        const savedTheme = localStorage.getItem('theme');
+        const userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (savedTheme === 'dark' || (!savedTheme && userPrefersDark)) {
+          document.body.classList.add('dark-mode');
+        }
+      })();
+    </script>
+
+    <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="checkbox">
+            <input type="checkbox" id="checkbox" />
+            <div class="slider round"></div>
+        </label>
+        <em id="theme-label">Mode Gelap</em>
+    </div>
+
+    <div class="menu-container">
+        <h1>𓆩C𓆪</h1>
+        <p>Kosakata:</p>
+        
+        <!-- Kelompok JLPT N5 -->
+        <div class="sesi-kelompok" id="n5-kelompok">
+            <h2>N5</h2>
+            <div class="menu-grid">
+                <a href="sesi/sesi_1.html" class="menu-button">Bab 1</a>
+                <a href="sesi/sesi_2.html" class="menu-button">Bab 2</a>
+            </div>
+        </div>
+
+        <!-- Kelompok JLPT N4 -->
+        <div class="sesi-kelompok" id="n4-kelompok">
+            <h2>N4</h2>
+            <div class="menu-grid">
+                <a href="sesi/sesi_3.html" class="menu-button">Bab 1</a>
+                <a href="sesi/sesi_4.html" class="menu-button">Bab 2</a>
+            </div>
+        </div>
+
+        <!-- Kelompok JLPT N3 -->
+        <div class="sesi-kelompok" id="n3-kelompok">
+            <h2>N3</h2>
+            <div class="menu-grid">
+                <a href="sesi/sesi_5.html" class="menu-button">Bab 1</a>
+                <a href="sesi/sesi_6.html" class="menu-button">Bab 2</a>
+                <a href="sesi/sesi_7.html" class="menu-button">Bab 3</a>
+                <a href="sesi/sesi_8.html" class="menu-button">Bab 4</a>
+                <a href="sesi/sesi_9.html" class="menu-button">Bab 5</a>
+                <a href="sesi/sesi_10.html" class="menu-button">Bab 6</a>
+            </div>
+        </div>
+
+        <!-- Kelompok JLPT N2 -->
+        <div class="sesi-kelompok" id="n2-kelompok">
+            <h2>N2</h2>
+            <div class="menu-grid">
+                <a href="sesi/sesi_11.html" class="menu-button">Bab 1</a>
+                <a href="sesi/sesi_12.html" class="menu-button">Bab 2</a>
+                <a href="sesi/sesi_13.html" class="menu-button">Bab 3</a>
+                <a href="sesi/sesi_14.html" class="menu-button">Bab 4</a>
+                <a href="sesi/sesi_15.html" class="menu-button">Bab 5</a>
+                <a href="sesi/sesi_16.html" class="menu-button">Bab 6</a>
+            </div>
+        </div>
+
+        <!-- Kelompok JLPT N1 -->
+        <div class="sesi-kelompok" id="n1-kelompok">
+            <h2>N1</h2>
+            <div class="menu-grid">
+                <a href="sesi/sesi_17.html" class="menu-button">Bab 1</a>
+                <a href="sesi/sesi_18.html" class="menu-button">Bab 2</a>
+                <a href="sesi/sesi_19.html" class="menu-button">Bab 3</a>
+                <a href="sesi/sesi_20.html" class="menu-button">Bab 4</a>
+                <a href="sesi/sesi_21.html" class="menu-button">Bab 5</a>
+                <a href="sesi/sesi_22.html" class="menu-button">Bab 6</a>
+                <a href="sesi/sesi_23.html" class="menu-button">Bab 7</a>
+                <a href="sesi/sesi_24.html" class="menu-button">Bab 8</a>
+            </div>
+        </div>
+        
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('checkbox');
+            const themeLabel = document.getElementById('theme-label');
+
+            function handleThemeToggle() {
+                const isDarkMode = document.body.classList.toggle('dark-mode');
+                localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+                if (themeLabel) {
+                    themeLabel.textContent = isDarkMode ? "Mode Terang" : "Mode Gelap";
+                }
+            }
+            
+            if (document.body.classList.contains('dark-mode')) {
+                if(themeToggle) themeToggle.checked = true;
+            }
+            if (themeLabel) {
+                themeLabel.textContent = themeToggle.checked ? "Mode Terang" : "Mode Gelap";
+            }
+
+            if(themeToggle) themeToggle.addEventListener('change', handleThemeToggle);
+        });
+    </script>
+    
+</body>
+</html>
+

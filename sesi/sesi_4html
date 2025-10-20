@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesi 1 - 𓆩cho𓆪</title>
+    <link rel="stylesheet" href="../style.css"> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- REVISI: Skrip anti-flash ditambahkan di sini -->
+    <script>
+      (function() {
+        const savedTheme = localStorage.getItem('theme');
+        const userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (savedTheme === 'dark' || (!savedTheme && userPrefersDark)) {
+          document.body.classList.add('dark-mode');
+        }
+      })();
+    </script>
+
+    <a href="../index.html" class="back-link">← Menu Utama</a>
+
+    <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="checkbox">
+            <input type="checkbox" id="checkbox" />
+            <div class="slider round"></div>
+        </label>
+        <em id="theme-label">Mode Gelap</em>
+    </div>
+
+    <div id="app" class="app-container">
+        <div class="card-scene">
+            <div class="card" id="flashcard">
+                <div class="card__face card__face--front" id="card-front"></div>
+                <div class="card__face card__face--back" id="card-back"></div>
+            </div>
+        </div>
+        <div class="card-counter" id="card-counter">0 / 0</div>
+        <div class="nav-instructions">
+            <p>Gunakan Panah ← → untuk navigasi, dan ↑ ↓ untuk membalik kartu.</p>
+        </div>
+    </div>
+
+    <script src="../js/data_4.js"></script>
+    <script src="../js/app.js"></script>
+</body>
+</html>
+

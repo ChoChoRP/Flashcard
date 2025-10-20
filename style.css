@@ -1,0 +1,177 @@
+/* --- Variabel Warna --- */
+:root {
+    --bg-light: #f4f4f9;
+    --card-bg-light: #ffffff;
+    --text-light: #000000; 
+    --shadow-light: rgba(0, 0, 0, 0.1);
+    --bg-dark: #121212;
+    --card-bg-dark: #1e1e1e;
+    --text-dark: #ffffff; 
+    --shadow-dark: rgba(0, 0, 0, 0.4);
+    --primary-color: #888888;
+    --toggle-handle-color: #000000;
+    --bg-color: var(--bg-light);
+    --card-bg-color: var(--card-bg-light);
+    --text-color: var(--text-light);
+    --shadow-color: var(--shadow-light);
+    --nav-button-bg-color: #f0f0f0;
+    --nav-button-text-color: #333;
+}
+
+body.dark-mode {
+    --bg-color: var(--bg-dark);
+    --card-bg-color: var(--card-bg-dark);
+    --text-color: var(--text-dark);
+    --shadow-color: var(--shadow-dark);
+    --toggle-handle-color: #ffffff;
+    --nav-button-bg-color: #333;
+    --nav-button-text-color: #fff;
+}
+
+/* --- Pengaturan Dasar & Reset --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    /* REVISI: Menggunakan font 'Inter' yang lebih modern */
+    font-family: 'Inter', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    overflow: hidden;
+}
+
+/* --- STYLES UNTUK MENU UTAMA (index.html) --- */
+body.menu-page {
+    overflow-y: auto; 
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 5vh 20px;
+}
+
+.menu-container {
+    width: 100%;
+    max-width: 960px;
+    text-align: center;
+}
+.menu-container h1 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-weight: 800; /* Dibuat lebih tebal */
+}
+.menu-container p {
+    font-size: 1.2rem;
+    margin-bottom: 2.5rem; /* Tambah jarak */
+}
+
+.sesi-kelompok {
+    margin-bottom: 3rem;
+}
+/* REVISI: Mempercantik tampilan judul kelompok */
+.sesi-kelompok h2 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-align: left;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--card-bg-color); /* Garis pemisah lebih soft */
+    color: var(--text-color);
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 1rem; /* Kurangi gap sedikit */
+}
+
+@media (min-width: 768px) {
+    .menu-grid {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+@media (max-width: 767px) {
+    .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.menu-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+    background-color: var(--card-bg-color);
+    color: var(--text-color); /* Teks tombol mengikuti tema */
+    font-weight: 600; /* Font lebih tebal */
+    text-decoration: none;
+    font-size: 1.1rem; /* Ukuran font disesuaikan */
+    border-radius: 10px;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.menu-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px var(--shadow-color);
+}
+/* REVISI: Menambahkan feedback saat tombol ditekan */
+.menu-button:active {
+    transform: translateY(-2px) scale(0.98);
+    box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+/* --- STYLES UNTUK HALAMAN FLASHCARD (sesi_X.html) --- */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+    position: relative;
+}
+
+/* (Sisa kode CSS tidak ada yang berubah signifikan) */
+.back-link { position: absolute; top: 25px; left: 25px; font-size: 1rem; font-weight: 700; color: var(--primary-color); text-decoration: none; z-index: 20; background: var(--bg-color); padding: 8px 12px; border-radius: 8px; transition: background-color 0.3s ease; }
+.theme-switch-wrapper { position: absolute; top: 20px; right: 20px; z-index: 10; display: flex; align-items: center; }
+.theme-switch-wrapper em { margin-left: 10px; font-size: 1rem; color: var(--text-color); }
+.theme-switch { position: relative; display: inline-block; width: 50px; height: 26px; }
+.theme-switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; }
+.slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 4px; bottom: 4px; background-color: var(--toggle-handle-color); transition: .4s; }
+input:checked + .slider { background-color: var(--primary-color); }
+input:checked + .slider:before { transform: translateX(24px); }
+.slider.round { border-radius: 34px; }
+.slider.round:before { border-radius: 50%; }
+.card-scene { width: 90vw; max-width: 500px; height: 55vh; max-height: 350px; perspective: 1500px; transition: transform 0.2s ease-out; }
+.app-container.is-changing .card-scene { transform: rotateY(90deg) scale(0.95); transition-timing-function: ease-in; }
+.card { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); cursor: pointer; }
+.card.is-flipped { transform: rotateX(180deg); }
+.card__face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; font-weight: 700; text-align: center; padding: 25px; background-color: var(--card-bg-color); color: var(--text-color); border-radius: 16px; box-shadow: 0 8px 24px var(--shadow-color); border: 1px solid var(--primary-color); transition: background-color 0.3s ease, color 0.3s ease; }
+.card__face--front { font-size: 4.5rem; }
+.card__face--back { transform: rotateX(180deg); flex-direction: column; justify-content: center; align-items: center; line-height: 1.6; padding: 30px; }
+.card__face--back .hiragana { font-size: 2.2rem; font-weight: 700; color: var(--primary-color); margin-bottom: 15px; }
+.card__face--back .definition { font-size: 1.6rem; font-weight: 500; margin-bottom: 20px; }
+.card__face--back .level { font-size: 1rem; font-weight: 700; color: #888; position: absolute; bottom: 20px; right: 25px; background-color: var(--bg-color); padding: 5px 10px; border-radius: 5px; transition: background-color 0.3s ease; }
+.card-counter { margin-top: 25px; font-size: 1.25rem; font-weight: 500; }
+.nav-instructions { margin-top: 10px; font-size: 0.9rem; color: #888; }
+.nav-button { position: absolute; bottom: 20px; width: 120px; height: 45px; background-color: var(--nav-button-bg-color); color: var(--nav-button-text-color); border-radius: 8px; display: flex; justify-content: center; align-items: center; font-size: 1.1rem; font-weight: 600; cursor: pointer; z-index: 30; user-select: none; transition: background-color 0.2s ease, transform 0.2s ease, color 0.2s ease; box-shadow: 0 2px 8px var(--shadow-color); }
+.nav-button:active { transform: scale(0.95); background-color: var(--primary-color); color: var(--card-bg-dark); }
+.nav-button--prev { left: 20px; }
+.nav-button--next { right: 20px; }
+
+@media (max-width: 600px) {
+    .card__face--front { font-size: 3.5rem; }
+    .card__face--back .hiragana { font-size: 1.8rem; }
+    .card__face--back .definition { font-size: 1.3rem; }
+    .back-link { top: 15px; left: 15px; }
+    .theme-switch-wrapper { top: 15px; right: 15px; }
+    .nav-button { width: 100px; font-size: 1rem; }
+}
+
