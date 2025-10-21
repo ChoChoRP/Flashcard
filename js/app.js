@@ -14,15 +14,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const originalFlashcards = [];
   let currentFlashcards = [];
   let currentCardIndex = 0;
+  // --- PERUBAHAN: Variabel baru untuk counter sesi yang independen ---
+  let sessionProgress = 1;
   let isFlipped = false;
   let isShuffled = false;
 
-  // Cek jika dataString ada, jika tidak, hentikan eksekusi
   if (typeof dataString === "undefined" || dataString.trim() === "") {
     cardFront.textContent = "Data tidak ditemukan.";
     cardCounter.textContent = "0 / 0";
     console.error("Variabel dataString tidak ada atau kosong.");
-    return; // Hentikan script jika tidak ada data
+    return;
   }
 
   const lines = dataString.trim().split("\n");
@@ -32,16 +33,13 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const parts = line.split(",");
       if (parts.length < 3) continue;
-
       const front = parts[0].trim();
       const hiragana = parts[1].trim();
       const level = parts[parts.length - 1].trim();
-      // Gabungkan sisa bagian sebagai definisi
       let definition = parts
         .slice(2, parts.length - 1)
         .join(",")
         .trim();
-      // Hapus tanda kutip jika ada
       if (definition.startsWith('"') && definition.endsWith('"')) {
         definition = definition.substring(1, definition.length - 1);
       }
@@ -69,9 +67,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const newCardData = currentFlashcards[currentCardIndex];
     cardFront.textContent = newCardData.front;
     cardBack.innerHTML = newCardData.back;
-    cardCounter.textContent = `${currentCardIndex + 1} / ${
-      currentFlashcards.length
-    }`;
+    // --- PERUBAHAN: Teks counter sekarang menggunakan sessionProgress ---
+    cardCounter.textContent = `${sessionProgress} / ${currentFlashcards.length}`;
     if (isFlipped) {
       isFlipped = false;
       card.classList.remove("is-flipped");
@@ -82,18 +79,26 @@ document.addEventListener("DOMContentLoaded", () => {
     isShuffled = !isShuffled;
     shuffleButton.classList.toggle("active", isShuffled);
 
+    // Simpan kartu yang sedang dilihat
+    const currentlyVisibleCard = currentFlashcards[currentCardIndex];
+
     if (isShuffled) {
-      // Jika mode acak DIAKTIFKAN
-      currentFlashcards = [...originalFlashcards]; // Ambil set kartu asli
-      shuffleArray(currentFlashcards); // Acak set tersebut
+      currentFlashcards = [...originalFlashcards];
+      shuffleArray(currentFlashcards);
     } else {
-      // Jika mode acak DINONAKTIFKAN
-      currentFlashcards = [...originalFlashcards]; // Kembalikan ke urutan asli
+      currentFlashcards = [...originalFlashcards];
     }
 
-    // Selalu mulai dari kartu pertama (indeks 0) setelah mengubah mode
-    currentCardIndex = 0;
-    showCard(currentCardIndex);
+    // Cari kartu yang sama di dek baru untuk menjaga posisi
+    const newIndexOfVisibleCard = currentFlashcards.findIndex(
+      (card) => card.front === currentlyVisibleCard.front
+    );
+    currentCardIndex = newIndexOfVisibleCard !== -1 ? newIndexOfVisibleCard : 0;
+
+    // Tampilkan kartu yang sesuai di index baru, TAPI JANGAN ubah counter
+    const newCardData = currentFlashcards[currentCardIndex];
+    cardFront.textContent = newCardData.front;
+    cardBack.innerHTML = newCardData.back;
   }
 
   function flipCard() {
@@ -109,16 +114,27 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => {
         showCard(newIndex);
         appContainer.classList.remove("is-changing");
-      }, 150); // Durasi sedikit lebih cepat
+      }, 150);
     }
   }
 
+  // --- PERUBAHAN: Fungsi navigasi sekarang mengatur sessionProgress ---
   function nextCard() {
-    if (currentFlashcards.length > 0) transitionToCard(currentCardIndex + 1);
+    if (currentFlashcards.length > 0) {
+      if (sessionProgress < currentFlashcards.length) {
+        sessionProgress++;
+      }
+      transitionToCard(currentCardIndex + 1);
+    }
   }
 
   function prevCard() {
-    if (currentFlashcards.length > 0) transitionToCard(currentCardIndex - 1);
+    if (currentFlashcards.length > 0) {
+      if (sessionProgress > 1) {
+        sessionProgress--;
+      }
+      transitionToCard(currentCardIndex - 1);
+    }
   }
 
   function handleThemeToggle() {
