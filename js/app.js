@@ -60,25 +60,22 @@ document.addEventListener("DOMContentLoaded", () => {
       cardCounter.textContent = "0 / 0";
       return;
     }
-    currentCardIndex =
-      (index + displayedFlashcards.length) % displayedFlashcards.length;
+    currentCardIndex = (index + displayedFlashcards.length) % displayedFlashcards.length;
     const cardData = displayedFlashcards[currentCardIndex];
     cardFront.textContent = cardData.front;
     cardBack.innerHTML = cardData.back;
-    cardCounter.textContent = `${currentCardIndex + 1} / ${
-      displayedFlashcards.length
-    }`;
+    cardCounter.textContent = `${currentCardIndex + 1} / ${displayedFlashcards.length}`;
     if (isFlipped) {
       isFlipped = false;
       card.classList.remove("is-flipped");
     }
   }
-
+  
   // Fungsi untuk mengacak array (Algoritma Fisher-Yates)
   function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
   }
@@ -86,8 +83,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // DIUBAH: Logika toggle acak untuk menjaga posisi counter
   function toggleShuffle() {
     isShuffled = !isShuffled;
-    shuffleButton.classList.toggle("active", isShuffled);
-
+    shuffleButton.classList.toggle('active', isShuffled);
+    
     // Simpan index saat ini untuk menjaga posisi di counter
     const savedIndex = currentCardIndex;
 
@@ -148,8 +145,8 @@ document.addEventListener("DOMContentLoaded", () => {
   if (themeToggle) themeToggle.addEventListener("change", handleThemeToggle);
   if (shuffleButton) shuffleButton.addEventListener("click", toggleShuffle);
 
-  if (prevButtonSvg) prevButtonSvg.addEventListener("click", prevCard);
-  if (nextButtonSvg) nextButtonSvg.addEventListener("click", nextCard);
+  if(prevButtonSvg) prevButtonSvg.addEventListener("click", prevCard);
+  if(nextButtonSvg) nextButtonSvg.addEventListener("click", nextCard);
 
   let touchStartX = 0;
   let touchStartY = 0;
@@ -194,4 +191,4 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   showCard(0);
 });
-// Dibuat oleh RIYAN GUSNA PRADITA
+
