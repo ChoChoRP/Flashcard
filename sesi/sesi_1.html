@@ -32,16 +32,24 @@
         <em id="theme-label">Mode Gelap</em>
     </div>
 
-    <div id="app" class="app-container">
+     <div id="app" class="app-container">
         <div class="card-scene">
             <div class="card" id="flashcard">
                 <div class="card__face card__face--front" id="card-front"></div>
                 <div class="card__face card__face--back" id="card-back"></div>
             </div>
         </div>
-        <div class="card-counter" id="card-counter">0 / 0</div>
+        <!-- DIUBAH: Tata letak tombol kontrol diperbarui -->
+        <div class="controls-container">
+            <div class="button-bar">
+                <div id="prev-btn-svg" class="nav-btn-svg"><img src="../img/left.svg" alt="Sebelumnya"></div>
+                <div id="shuffle-button" class="shuffle-btn"><img src="../img/acak.svg" alt="Acak Kartu"></div>
+                <div id="next-btn-svg" class="nav-btn-svg"><img src="../img/right.svg" alt="Selanjutnya"></div>
+            </div>
+            <div class="card-counter" id="card-counter">0 / 0</div>
+        </div>
         <div class="nav-instructions">
-            <p>Gunakan Panah ← → untuk navigasi, dan ↑ ↓ untuk membalik kartu.</p>
+            <p>tips: gunakan tombol acak setelah kalian sudah hafal secara urut</p>
         </div>
     </div>
 
@@ -49,4 +57,3 @@
     <script src="../js/app.js"></script>
 </body>
 </html>
-

@@ -37,7 +37,6 @@ body.dark-mode {
 
 html, body {
     height: 100%;
-    /* REVISI: Menggunakan font 'Inter' yang lebih modern */
     font-family: 'Inter', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
@@ -63,31 +62,30 @@ body.menu-page {
     font-size: 2.5rem;
     color: var(--primary-color);
     margin-bottom: 1rem;
-    font-weight: 800; /* Dibuat lebih tebal */
+    font-weight: 800;
 }
 .menu-container p {
     font-size: 1.2rem;
-    margin-bottom: 2.5rem; /* Tambah jarak */
+    margin-bottom: 2.5rem;
 }
 
 .sesi-kelompok {
     margin-bottom: 3rem;
 }
-/* REVISI: Mempercantik tampilan judul kelompok */
 .sesi-kelompok h2 {
     font-size: 1.2rem;
     font-weight: 700;
     text-align: left;
     margin-bottom: 1.2rem;
     padding-bottom: 0.75rem;
-    border-bottom: 2px solid var(--card-bg-color); /* Garis pemisah lebih soft */
+    border-bottom: 2px solid var(--card-bg-color);
     color: var(--text-color);
 }
 
 .menu-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 1rem; /* Kurangi gap sedikit */
+    gap: 1rem;
 }
 
 @media (min-width: 768px) {
@@ -108,10 +106,10 @@ body.menu-page {
     align-items: center;
     padding: 1.5rem;
     background-color: var(--card-bg-color);
-    color: var(--text-color); /* Teks tombol mengikuti tema */
-    font-weight: 600; /* Font lebih tebal */
+    color: var(--text-color);
+    font-weight: 600;
     text-decoration: none;
-    font-size: 1.1rem; /* Ukuran font disesuaikan */
+    font-size: 1.1rem;
     border-radius: 10px;
     box-shadow: 0 4px 12px var(--shadow-color);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -120,7 +118,6 @@ body.menu-page {
     transform: translateY(-5px);
     box-shadow: 0 8px 16px var(--shadow-color);
 }
-/* REVISI: Menambahkan feedback saat tombol ditekan */
 .menu-button:active {
     transform: translateY(-2px) scale(0.98);
     box-shadow: 0 4px 8px var(--shadow-color);
@@ -137,7 +134,6 @@ body.menu-page {
     position: relative;
 }
 
-/* (Sisa kode CSS tidak ada yang berubah signifikan) */
 .back-link { position: absolute; top: 25px; left: 25px; font-size: 1rem; font-weight: 700; color: var(--primary-color); text-decoration: none; z-index: 20; background: var(--bg-color); padding: 8px 12px; border-radius: 8px; transition: background-color 0.3s ease; }
 .theme-switch-wrapper { position: absolute; top: 20px; right: 20px; z-index: 10; display: flex; align-items: center; }
 .theme-switch-wrapper em { margin-left: 10px; font-size: 1rem; color: var(--text-color); }
@@ -159,12 +155,71 @@ input:checked + .slider:before { transform: translateX(24px); }
 .card__face--back .hiragana { font-size: 2.2rem; font-weight: 700; color: var(--primary-color); margin-bottom: 15px; }
 .card__face--back .definition { font-size: 1.6rem; font-weight: 500; margin-bottom: 20px; }
 .card__face--back .level { font-size: 1rem; font-weight: 700; color: #888; position: absolute; bottom: 20px; right: 25px; background-color: var(--bg-color); padding: 5px 10px; border-radius: 5px; transition: background-color 0.3s ease; }
-.card-counter { margin-top: 25px; font-size: 1.25rem; font-weight: 500; }
-.nav-instructions { margin-top: 10px; font-size: 0.9rem; color: #888; }
-.nav-button { position: absolute; bottom: 20px; width: 120px; height: 45px; background-color: var(--nav-button-bg-color); color: var(--nav-button-text-color); border-radius: 8px; display: flex; justify-content: center; align-items: center; font-size: 1.1rem; font-weight: 600; cursor: pointer; z-index: 30; user-select: none; transition: background-color 0.2s ease, transform 0.2s ease, color 0.2s ease; box-shadow: 0 2px 8px var(--shadow-color); }
-.nav-button:active { transform: scale(0.95); background-color: var(--primary-color); color: var(--card-bg-dark); }
-.nav-button--prev { left: 20px; }
-.nav-button--next { right: 20px; }
+
+/* DIHAPUS: Tombol navigasi teks lama tidak diperlukan lagi */
+.nav-button { 
+    display: none;
+}
+
+/* --- KODE BARU UNTUK TOMBOL KONTROL --- */
+.controls-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* Sedikit tambah jarak */
+    margin-top: 25px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.button-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px; /* Jarak antar tombol */
+}
+
+.shuffle-btn, .nav-btn-svg {
+    width: 50px;
+    height: 50px;
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px var(--shadow-color);
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.shuffle-btn:active, .nav-btn-svg:active {
+    transform: scale(0.9);
+    box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+.shuffle-btn img, .nav-btn-svg img {
+    width: 22px;
+    height: 22px;
+    transition: filter 0.3s ease;
+}
+
+.shuffle-btn.active {
+    background-color: var(--primary-color);
+    box-shadow: 0 0 12px var(--primary-color);
+}
+
+.shuffle-btn.active img {
+    filter: brightness(0) invert(1);
+}
+
+.card-counter {
+    font-size: 1.25rem;
+    font-weight: 500; 
+}
+/* --- AKHIR KODE BARU --- */
+
 
 @media (max-width: 600px) {
     .card__face--front { font-size: 3.5rem; }
@@ -174,4 +229,5 @@ input:checked + .slider:before { transform: translateX(24px); }
     .theme-switch-wrapper { top: 15px; right: 15px; }
     .nav-button { width: 100px; font-size: 1rem; }
 }
+
 
