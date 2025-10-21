@@ -82,22 +82,17 @@ document.addEventListener("DOMContentLoaded", () => {
     isShuffled = !isShuffled;
     shuffleButton.classList.toggle("active", isShuffled);
 
-    const currentCardBeforeToggle = currentFlashcards[currentCardIndex];
-
     if (isShuffled) {
-      currentFlashcards = [...originalFlashcards];
-      shuffleArray(currentFlashcards);
+      // Jika mode acak DIAKTIFKAN
+      currentFlashcards = [...originalFlashcards]; // Ambil set kartu asli
+      shuffleArray(currentFlashcards); // Acak set tersebut
     } else {
-      currentFlashcards = [...originalFlashcards];
+      // Jika mode acak DINONAKTIFKAN
+      currentFlashcards = [...originalFlashcards]; // Kembalikan ke urutan asli
     }
 
-    const newIndex = currentFlashcards.findIndex(
-      (card) =>
-        card.front === currentCardBeforeToggle.front &&
-        card.back === currentCardBeforeToggle.back
-    );
-    currentCardIndex = newIndex !== -1 ? newIndex : 0;
-
+    // Selalu mulai dari kartu pertama (indeks 0) setelah mengubah mode
+    currentCardIndex = 0;
     showCard(currentCardIndex);
   }
 
