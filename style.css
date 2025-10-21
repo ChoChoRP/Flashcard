@@ -14,8 +14,6 @@
     --card-bg-color: var(--card-bg-light);
     --text-color: var(--text-light);
     --shadow-color: var(--shadow-light);
-    --nav-button-bg-color: #f0f0f0;
-    --nav-button-text-color: #333;
 }
 
 body.dark-mode {
@@ -24,8 +22,6 @@ body.dark-mode {
     --text-color: var(--text-dark);
     --shadow-color: var(--shadow-dark);
     --toggle-handle-color: #ffffff;
-    --nav-button-bg-color: #333;
-    --nav-button-text-color: #fff;
 }
 
 /* --- Pengaturan Dasar & Reset --- */
@@ -146,7 +142,7 @@ input:checked + .slider:before { transform: translateX(24px); }
 .slider.round { border-radius: 34px; }
 .slider.round:before { border-radius: 50%; }
 .card-scene { width: 90vw; max-width: 500px; height: 55vh; max-height: 350px; perspective: 1500px; transition: transform 0.2s ease-out; }
-.app-container.is-changing .card-scene { transform: rotateY(90deg) scale(0.95); transition-timing-function: ease-in; }
+.app-container.is-changing .card-scene { transform: scale(0.95); transition-timing-function: ease-in; }
 .card { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); cursor: pointer; }
 .card.is-flipped { transform: rotateX(180deg); }
 .card__face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; font-weight: 700; text-align: center; padding: 25px; background-color: var(--card-bg-color); color: var(--text-color); border-radius: 16px; box-shadow: 0 8px 24px var(--shadow-color); border: 1px solid var(--primary-color); transition: background-color 0.3s ease, color 0.3s ease; }
@@ -155,18 +151,14 @@ input:checked + .slider:before { transform: translateX(24px); }
 .card__face--back .hiragana { font-size: 2.2rem; font-weight: 700; color: var(--primary-color); margin-bottom: 15px; }
 .card__face--back .definition { font-size: 1.6rem; font-weight: 500; margin-bottom: 20px; }
 .card__face--back .level { font-size: 1rem; font-weight: 700; color: #888; position: absolute; bottom: 20px; right: 25px; background-color: var(--bg-color); padding: 5px 10px; border-radius: 5px; transition: background-color 0.3s ease; }
+.nav-instructions { margin-top: 15px; font-size: 0.9rem; color: #888; }
 
-/* DIHAPUS: Tombol navigasi teks lama tidak diperlukan lagi */
-.nav-button { 
-    display: none;
-}
-
-/* --- KODE BARU UNTUK TOMBOL KONTROL --- */
+/* --- PERBAIKAN FINAL TATA LETAK & KONTROL --- */
 .controls-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px; /* Sedikit tambah jarak */
+    gap: 15px;
     margin-top: 25px;
     width: 100%;
     max-width: 500px;
@@ -174,52 +166,64 @@ input:checked + .slider:before { transform: translateX(24px); }
 
 .button-bar {
     display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 40px; /* Jarak antar tombol */
+    gap: 30px;
 }
 
 .shuffle-btn, .nav-btn-svg {
-    width: 50px;
-    height: 50px;
-    background-color: var(--card-bg-color);
-    border: 1px solid var(--primary-color);
-    border-radius: 50%;
+    width: 44px;
+    height: 44px;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: var(--card-bg-color);
+    border-radius: 50%;
     cursor: pointer;
-    box-shadow: 0 4px 10px var(--shadow-color);
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    box-shadow: 0 2px 8px var(--shadow-color);
     -webkit-tap-highlight-color: transparent;
 }
 
-.shuffle-btn:active, .nav-btn-svg:active {
-    transform: scale(0.9);
-    box-shadow: 0 2px 5px var(--shadow-color);
+.shuffle-btn img, .nav-btn-svg img {
+    width: 24px;
+    height: 24px;
+    transition: filter 0.3s ease;
 }
 
-.shuffle-btn img, .nav-btn-svg img {
-    width: 22px;
-    height: 22px;
-    transition: filter 0.3s ease;
+body.dark-mode .shuffle-btn img, 
+body.dark-mode .nav-btn-svg img {
+    filter: invert(1);
+}
+
+.shuffle-btn:active, .nav-btn-svg:active {
+    transform: scale(0.92);
+    box-shadow: 0 1px 4px var(--shadow-color);
 }
 
 .shuffle-btn.active {
     background-color: var(--primary-color);
-    box-shadow: 0 0 12px var(--primary-color);
+    box-shadow: 0 0 12px 2px var(--primary-color);
+}
+
+body.dark-mode .shuffle-btn.active {
+    background-color: #e0e0e0;
+    box-shadow: 0 0 15px 3px #ffffff;
 }
 
 .shuffle-btn.active img {
-    filter: brightness(0) invert(1);
+    filter: invert(1) brightness(2);
 }
 
-.card-counter {
-    font-size: 1.25rem;
+body.dark-mode .shuffle-btn.active img {
+    filter: none;
+}
+
+.card-counter { 
+    font-size: 1.25rem; 
     font-weight: 500; 
 }
-/* --- AKHIR KODE BARU --- */
-
 
 @media (max-width: 600px) {
     .card__face--front { font-size: 3.5rem; }
@@ -227,7 +231,5 @@ input:checked + .slider:before { transform: translateX(24px); }
     .card__face--back .definition { font-size: 1.3rem; }
     .back-link { top: 15px; left: 15px; }
     .theme-switch-wrapper { top: 15px; right: 15px; }
-    .nav-button { width: 100px; font-size: 1rem; }
 }
-
 
