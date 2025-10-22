@@ -48,8 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const cardBack = document.getElementById("card-back");
     const cardCounter = document.getElementById("card-counter");
     const themeToggle = document.getElementById("checkbox");
-    // REVISI: Hapus referensi ke themeLabel
-    // const themeLabel = document.getElementById("theme-label");
+    // Referensi ke themeLabel sudah dihapus
     const cardScene = document.querySelector(".card-scene");
 
     const prevButtonSVG = document.getElementById("prev-button-svg");
@@ -104,10 +103,13 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
+    // Fungsi Modal Kustom (Perbaikan bug 'freeze')
     function showModal(text, yesCallback, noCallback) {
       modalText.textContent = text;
       modal.style.display = "flex";
 
+      // Gunakan { once: true } untuk otomatis menghapus event listener setelah diklik
+      // Ini mencegah bug 'freeze'
       modalButtonYes.addEventListener(
         "click",
         function handleYes() {
@@ -132,6 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
+    // Fungsi localStorage
     function saveProgress() {
       try {
         const progress = {
@@ -182,6 +185,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
+    // Fungsi Inti Aplikasi
     function shuffleArray(array) {
       for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -193,16 +197,23 @@ document.addEventListener("DOMContentLoaded", () => {
       if (learningMode === "bebas") {
         cardCounter.textContent = `${sessionProgress} / ${originalFlashcards.length}`;
       } else {
-        // REVISI: Diperbaiki dari originalFlashlabels.length menjadi originalFlashcards.length
+        // Perbaikan bug typo (originalFlashlabels -> originalFlashcards)
         cardCounter.textContent = `${correctAnswers} / ${originalFlashcards.length}`;
       }
     }
 
     function showCard(index) {
-      if (currentFlashcards.length === 0) return;
+      if (!currentFlashcards || currentFlashcards.length === 0) return; // Tambahan keamanan
+
       currentCardIndex =
         (index + currentFlashcards.length) % currentFlashcards.length;
+
       const newCardData = currentFlashcards[currentCardIndex];
+      if (!newCardData) {
+        console.error("Data kartu tidak ditemukan di index:", currentCardIndex);
+        return; // Hentikan jika data undefined
+      }
+
       cardFront.textContent = newCardData.front;
       cardBack.innerHTML = newCardData.back;
       updateCounter();
@@ -229,16 +240,29 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
+    // REVISI FINAL: Perbaikan bug 'freeze' di Mode Test
     function transitionToCard(newIndex) {
-      if (!appContainer.classList.contains("is-changing")) {
-        appContainer.classList.add("is-changing");
+      if (appContainer.classList.contains("is-changing")) return; // Jangan lakukan apapun jika sedang transisi
+
+      appContainer.classList.add("is-changing");
+
+      try {
+        // Tampilkan kartu baru setelah jeda singkat
         setTimeout(() => {
           showCard(newIndex);
+        }, 150); // 150ms untuk animasi keluar
+      } catch (e) {
+        console.error("Error saat transisi kartu:", e);
+      } finally {
+        // Pastikan kelas 'is-changing' SELALU dihapus
+        // Tambahkan jeda sedikit lebih lama dari timeout di atas
+        setTimeout(() => {
           appContainer.classList.remove("is-changing");
-        }, 150);
+        }, 200); // 200ms
       }
     }
 
+    // Logika Navigasi
     function nextCard() {
       if (learningMode !== "bebas" || currentFlashcards.length === 0) return;
       if (sessionProgress >= originalFlashcards.length) {
@@ -296,14 +320,13 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
+    // Fungsi Tema (tanpa label)
     function handleThemeToggle() {
       const isDarkMode = document.body.classList.toggle("dark-mode");
       localStorage.setItem("theme", isDarkMode ? "dark" : "light");
-      // REVISI: Hapus logika themeLabel
-      // if (themeLabel)
-      //   themeLabel.textContent = isDarkMode ? "Mode Terang" : "Mode Gelap";
     }
 
+    // Event Listeners
     document.addEventListener("keydown", (e) => {
       if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key))
         e.preventDefault();
@@ -333,15 +356,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (shuffleButtonTest)
       shuffleButtonTest.addEventListener("click", toggleShuffle);
 
+    // Inisialisasi UI (tanpa label)
     if (document.body.classList.contains("dark-mode")) {
       if (themeToggle) themeToggle.checked = true;
     }
-    // REVISI: Hapus logika themeLabel
-    // if (themeLabel) {
-    //   themeLabel.textContent =
-    //     themeToggle && themeToggle.checked ? "Mode Terang" : "Mode Gelap";
-    // }
 
+    // Muat Progres dan Mulai Aplikasi
     loadProgress((progresDimuat) => {
       if (!progresDimuat) {
         currentFlashcards = [...originalFlashcards];
