@@ -9,26 +9,36 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
+  // Kunci unik untuk localStorage berdasarkan bab dan mode
   const storageKey = `flashcardProgress_bab${babId}_mode${learningMode}`;
 
+  // Function to load the specific data script for the chapter
   function loadDataScript(callback) {
     const script = document.createElement("script");
-    script.src = `../js/data_${babId}.js`;
+    script.src = `../js/data_${babId}.js`; // e.g., ../js/data_1.js
+
+    // When the script is loaded successfully, run the app
     script.onload = () => {
       console.log(`data_${babId}.js loaded successfully.`);
       callback();
     };
+
+    // If the script fails to load
     script.onerror = () => {
       console.error(`Failed to load data_${babId}.js.`);
       document.getElementById(
         "card-front"
       ).textContent = `Data untuk Bab ${babId} tidak ditemukan.`;
     };
+
     document.head.appendChild(script);
   }
 
+  // Load the script, and then initialize the app
   loadDataScript(initializeApp);
 
+  // This function contains the entire application logic
+  // It will only run AFTER the data script is loaded
   function initializeApp() {
     document.body.classList.add("mode-" + learningMode);
 
@@ -183,7 +193,8 @@ document.addEventListener("DOMContentLoaded", () => {
       if (learningMode === "bebas") {
         cardCounter.textContent = `${sessionProgress} / ${originalFlashcards.length}`;
       } else {
-        cardCounter.textContent = `${correctAnswers} / ${originalFlashlabels.length}`;
+        // REVISI: Diperbaiki dari originalFlashlabels.length menjadi originalFlashcards.length
+        cardCounter.textContent = `${correctAnswers} / ${originalFlashcards.length}`;
       }
     }
 
