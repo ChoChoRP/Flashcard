@@ -57,66 +57,142 @@ body.menu-page {
 .menu-container h1 {
     font-size: 2.5rem;
     color: var(--primary-color);
-    margin-bottom: 1rem;
+    margin-bottom: 2.5rem; /* Tambah jarak bawah */
     font-weight: 800;
 }
-.menu-container p {
-    font-size: 1.2rem;
-    margin-bottom: 2.5rem;
-}
 
-.sesi-kelompok {
-    margin-bottom: 3rem;
-}
-.sesi-kelompok h2 {
-    font-size: 1.2rem;
-    font-weight: 700;
-    text-align: left;
-    margin-bottom: 1.2rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 2px solid var(--card-bg-color);
-    color: var(--text-color);
-}
-
-.menu-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+/* --- REVISI: STYLES UNTUK DROPDOWN --- */
+.category-bar {
+    display: flex;
+    flex-wrap: wrap; /* Biarkan baris baru jika layar sempit */
+    justify-content: center;
     gap: 1rem;
+    width: 100%;
+    margin-bottom: 2rem;
 }
 
-@media (min-width: 768px) {
-    .menu-grid {
-        grid-template-columns: repeat(5, 1fr);
-    }
+.category-dropdown {
+    position: relative;
+    display: inline-block;
 }
 
-@media (max-width: 767px) {
-    .menu-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+.category-button {
+    background-color: var(--card-bg-color);
+    color: var(--text-color);
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    min-width: 80px;
 }
 
-.menu-button {
+.category-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 14px var(--shadow-color);
+}
+
+.dropdown-content {
+    display: none; /* Sembunyi by default */
+    position: absolute;
+    background-color: var(--card-bg-color);
+    min-width: 160px;
+    box-shadow: 0 8px 16px 0px var(--shadow-color);
+    border-radius: 8px;
+    z-index: 10;
+    margin-top: 8px;
+    overflow: hidden; /* Agar border-radius rapi */
+    text-align: left;
+}
+
+.dropdown-content a {
+    color: var(--text-color);
+    font-weight: 500;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--primary-color);
+    color: var(--bg-color);
+}
+
+/* Kelas 'show' ditambahkan oleh JS untuk menampilkan dropdown */
+.dropdown-content.show {
+    display: block;
+}
+
+/* --- STYLES UNTUK MODAL (Sama seperti sebelumnya) --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 1.5rem;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+.modal-content {
     background-color: var(--card-bg-color);
+    padding: 2.5rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 10px 30px var(--shadow-color);
+    position: relative;
+    width: 90%;
+    max-width: 400px;
+}
+.modal-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
     color: var(--text-color);
-    font-weight: 600;
-    text-decoration: none;
+}
+.modal-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.modal-button {
+    font-family: 'Inter', sans-serif;
     font-size: 1.1rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px var(--shadow-color);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    font-weight: 600;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
 }
-.menu-button:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px var(--shadow-color);
+.modal-button:first-of-type {
+    background-color: var(--primary-color);
+    color: var(--bg-color);
 }
-.menu-button:active {
-    transform: translateY(-2px) scale(0.98);
-    box-shadow: 0 4px 8px var(--shadow-color);
+.modal-button:last-of-type {
+    background-color: var(--card-bg-color);
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+.modal-button:hover {
+    transform: scale(1.03);
+}
+.modal-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 2rem;
+    color: var(--primary-color);
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
 /* --- STYLES UNTUK HALAMAN FLASHCARD (sesi.html) --- */
@@ -129,7 +205,6 @@ body.menu-page {
     padding: 20px;
     position: relative;
 }
-
 .back-link { position: absolute; top: 25px; left: 25px; font-size: 1rem; font-weight: 700; color: var(--primary-color); text-decoration: none; z-index: 20; background: var(--bg-color); padding: 8px 12px; border-radius: 8px; transition: background-color 0.3s ease; }
 .theme-switch-wrapper { position: absolute; top: 20px; right: 20px; z-index: 10; display: flex; align-items: center; }
 .theme-switch-wrapper em { margin-left: 10px; font-size: 1rem; color: var(--text-color); }
@@ -152,25 +227,13 @@ input:checked + .slider:before { transform: translateX(24px); }
 .card__face--back .definition { font-size: 1.6rem; font-weight: 500; margin-bottom: 20px; }
 .card__face--back .level { font-size: 1rem; font-weight: 700; color: #888; position: absolute; bottom: 20px; right: 25px; background-color: var(--bg-color); padding: 5px 10px; border-radius: 5px; transition: background-color 0.3s ease; }
 .nav-instructions { margin-top: 15px; font-size: 0.9rem; color: #888; }
+.controls-container { display: flex; flex-direction: column; align-items: center; gap: 15px; margin-top: 25px; width: 100%; max-width: 500px; }
+.button-bar { display: flex; flex-direction: row; justify-content: center; align-items: center; gap: 30px; }
 
-/* --- KONTROL TATA LETAK --- */
-.controls-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    margin-top: 25px;
-    width: 100%;
-    max-width: 500px;
-}
-
-.button-bar {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-}
+/* Sembunyikan/Tampilkan kontrol mode */
+.controls-bebas, .controls-test { display: none; }
+body.mode-bebas .controls-bebas { display: flex; flex-direction: row; justify-content: center; align-items: center; gap: 30px; }
+body.mode-test .controls-test { display: flex; flex-direction: row; justify-content: center; align-items: center; gap: 30px; }
 
 .shuffle-btn, .nav-btn-svg {
     width: 44px;
@@ -181,49 +244,43 @@ input:checked + .slider:before { transform: translateX(24px); }
     background-color: var(--card-bg-color);
     border-radius: 50%;
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
     box-shadow: 0 2px 8px var(--shadow-color);
     -webkit-tap-highlight-color: transparent;
+    
+    /* REVISI ANIMASI: Efek klik (transform) cepat, efek cahaya (shadow/bg) lambat */
+    transition: transform 0.1s ease, 
+                box-shadow 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                background-color 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-
 .shuffle-btn img, .nav-btn-svg img {
     width: 24px;
     height: 24px;
     transition: filter 0.3s ease;
 }
-
 body.dark-mode .shuffle-btn img, 
 body.dark-mode .nav-btn-svg img {
     filter: invert(1);
 }
-
 .shuffle-btn:active, .nav-btn-svg:active {
-    transform: scale(0.92);
+    transform: scale(0.92); /* Efek klik tetap cepat */
     box-shadow: 0 1px 4px var(--shadow-color);
 }
+.shuffle-btn.active { background-color: var(--primary-color); box-shadow: 0 0 12px 2px var(--primary-color); }
+body.dark-mode .shuffle-btn.active { background-color: #e0e0e0; box-shadow: 0 0 15px 3px #ffffff; }
+.shuffle-btn.active img { filter: invert(1) brightness(2); }
+body.dark-mode .shuffle-btn.active img { filter: none; }
 
-.shuffle-btn.active {
-    background-color: var(--primary-color);
-    box-shadow: 0 0 12px 2px var(--primary-color);
+/* Style tombol Ceklis/Silang */
+#correct-button-svg:active {
+    background-color: #4CAF50; /* Hijau */
+    box-shadow: 0 0 15px 3px #4CAF50;
+}
+#wrong-button-svg:active {
+    background-color: #F44336; /* Merah */
+    box-shadow: 0 0 15px 3px #F44336;
 }
 
-body.dark-mode .shuffle-btn.active {
-    background-color: #e0e0e0;
-    box-shadow: 0 0 15px 3px #ffffff;
-}
-
-.shuffle-btn.active img {
-    filter: invert(1) brightness(2);
-}
-
-body.dark-mode .shuffle-btn.active img {
-    filter: none;
-}
-
-.card-counter { 
-    font-size: 1.25rem; 
-    font-weight: 500; 
-}
+.card-counter { font-size: 1.25rem; font-weight: 500; }
 
 @media (max-width: 600px) {
     .card__face--front { font-size: 3.5rem; }
@@ -231,106 +288,36 @@ body.dark-mode .shuffle-btn.active img {
     .card__face--back .definition { font-size: 1.3rem; }
     .back-link { top: 15px; left: 15px; }
     .theme-switch-wrapper { top: 15px; right: 15px; }
+    
+    /* Responsive untuk dropdown bar */
+    .category-bar {
+        gap: 0.5rem;
+    }
+    .category-button {
+        font-size: 1rem;
+        padding: 0.7rem 1rem;
+    }
 }
 
-/* --- STYLES MODAL (index.html & sesi.html) --- */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    display: flex;
+/* Modal Kustom untuk sesi.html */
+#custom-modal .modal-content {
+    padding: 2rem;
+}
+#custom-modal .modal-buttons {
+    flex-direction: row;
     justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    backdrop-filter: blur(5px);
 }
-
-.modal-content {
-    background-color: var(--card-bg-color);
-    padding: 2.5rem;
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: 0 10px 30px var(--shadow-color);
-    position: relative;
-    width: 90%;
-    max-width: 400px;
-    color: var(--text-color); /* Pastikan teks modal juga berubah warna */
+#custom-modal .modal-button {
+    min-width: 100px;
 }
-
-.modal-content h3 {
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
-    color: var(--text-color);
-}
-
-.modal-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.modal-button {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 600;
-    padding: 0.8rem 1.5rem;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.2s ease;
-}
-
-/* Tombol Yes/Utama */
-.modal-button:first-of-type,
-#modal-button-yes {
-    background-color: var(--primary-color);
-    color: var(--bg-color);
-}
-/* Tombol No/Sekunder */
-.modal-button:last-of-type,
-#modal-button-no {
+#custom-modal .modal-button#modal-button-no {
+    margin-left: 1rem;
     background-color: var(--card-bg-color);
     color: var(--primary-color);
     border: 2px solid var(--primary-color);
 }
-
-.modal-button:hover {
-    transform: scale(1.03);
-}
-
-.modal-close-btn {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 2rem;
-    color: var(--primary-color);
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
-
-/* --- STYLES KONTROL MODE (sesi.html) --- */
-.controls-bebas,
-.controls-test {
-    display: none;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-}
-body.mode-bebas .controls-bebas { display: flex; }
-body.mode-test .controls-test { display: flex; }
-
-#correct-button-svg:active {
-    background-color: #4CAF50; /* Green */
-    box-shadow: 0 0 15px 3px #4CAF50;
-}
-#wrong-button-svg:active {
-    background-color: #F44336; /* Red */
-    box-shadow: 0 0 15px 3px #F44336;
+#custom-modal .modal-button#modal-button-yes {
+     background-color: var(--primary-color);
+     color: var(--bg-color);
 }
 

@@ -9,48 +9,38 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  // Kunci unik untuk localStorage berdasarkan bab dan mode
   const storageKey = `flashcardProgress_bab${babId}_mode${learningMode}`;
 
-  // Function to load the specific data script for the chapter
   function loadDataScript(callback) {
     const script = document.createElement("script");
-    script.src = `../js/data_${babId}.js`; // e.g., ../js/data_1.js
-
-    // When the script is loaded successfully, run the app
+    script.src = `../js/data_${babId}.js`;
     script.onload = () => {
       console.log(`data_${babId}.js loaded successfully.`);
       callback();
     };
-
-    // If the script fails to load
     script.onerror = () => {
       console.error(`Failed to load data_${babId}.js.`);
       document.getElementById(
         "card-front"
       ).textContent = `Data untuk Bab ${babId} tidak ditemukan.`;
     };
-
     document.head.appendChild(script);
   }
 
-  // Load the script, and then initialize the app
   loadDataScript(initializeApp);
 
-  // This function contains the entire application logic
-  // It will only run AFTER the data script is loaded
   function initializeApp() {
     document.body.classList.add("mode-" + learningMode);
 
     const appContainer = document.getElementById("app");
     const card = document.getElementById("flashcard");
+    // ... (sisa const elemen) ...
     const cardFront = document.getElementById("card-front");
     const cardBack = document.getElementById("card-back");
     const cardCounter = document.getElementById("card-counter");
     const themeToggle = document.getElementById("checkbox");
     const themeLabel = document.getElementById("theme-label");
     const cardScene = document.querySelector(".card-scene");
-
     const prevButtonSVG = document.getElementById("prev-button-svg");
     const nextButtonSVG = document.getElementById("next-button-svg");
     const shuffleButtonBebas = document.getElementById("shuffle-button-bebas");
@@ -58,14 +48,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const wrongButtonSVG = document.getElementById("wrong-button-svg");
     const shuffleButtonTest = document.getElementById("shuffle-button-test");
 
-    // Elemen Modal Kustom
+    // --- PERBAIKAN: Referensi Elemen Modal ---
     const modal = document.getElementById("custom-modal");
     const modalText = document.getElementById("modal-text");
     const modalButtonYes = document.getElementById("modal-button-yes");
     const modalButtonNo = document.getElementById("modal-button-no");
 
-    const originalFlashcards = [];
+    let originalFlashcards = [];
     let currentFlashcards = [];
+    // ... (sisa let variabel) ...
     let wrongPile = [];
     let currentCardIndex = 0;
     let sessionProgress = 1;
@@ -73,15 +64,14 @@ document.addEventListener("DOMContentLoaded", () => {
     let isFlipped = false;
     let isShuffled = false;
 
-    // --- DATA PARSING (using the global dataString from the loaded script) ---
     if (typeof dataString === "undefined" || dataString.trim() === "") {
+      // ... (kode parsing data sama) ...
       cardFront.textContent = "Data kosong atau tidak valid.";
       console.error(
         "Variabel dataString tidak ada atau kosong setelah script dimuat."
       );
       return;
     }
-
     const lines = dataString.trim().split("\n");
     for (const line of lines) {
       if (line.trim() === "" || line.startsWith(";")) continue;
@@ -104,40 +94,44 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("Gagal mem-parsing baris:", line, e);
       }
     }
-    // currentFlashcards diatur setelah loadProgress
 
-    // --- FUNGSI MODAL KUSTOM ---
+    // --- PERBAIKAN: FUNGSI MODAL KUSTOM (Logika Jauh Lebih Bersih) ---
     function showModal(text, yesCallback, noCallback) {
       modalText.textContent = text;
       modal.style.display = "flex";
 
-      // Hapus event listener lama agar tidak tumpang tindih
-      const newYes = modalButtonYes.cloneNode(true);
-      modalButtonYes.parentNode.replaceChild(newYes, modalButtonYes);
-      modalButtonYes = newYes; // Update referensi
+      // Gunakan addEventListener dengan { once: true }
+      // Ini adalah cara modern & bersih untuk memastikan event hanya berjalan sekali
+      // dan mencegah bug "freeze" atau penumpukan event.
 
-      const newNo = modalButtonNo.cloneNode(true);
-      modalButtonNo.parentNode.replaceChild(newNo, modalButtonNo);
-      modalButtonNo = newNo; // Update referensi
-
-      modalButtonYes.onclick = () => {
-        modal.style.display = "none";
-        if (yesCallback) yesCallback();
-      };
+      modalButtonYes.addEventListener(
+        "click",
+        function handleYes() {
+          modal.style.display = "none";
+          if (yesCallback) yesCallback();
+        },
+        { once: true }
+      ); // Penting: { once: true }
 
       if (noCallback) {
         modalButtonNo.style.display = "inline-block";
-        modalButtonNo.onclick = () => {
-          modal.style.display = "none";
-          noCallback();
-        };
+        modalButtonNo.addEventListener(
+          "click",
+          function handleNo() {
+            modal.style.display = "none";
+            noCallback();
+          },
+          { once: true }
+        ); // Penting: { once: true }
       } else {
+        // Jika hanya modal "OK" (tidak ada callback 'no')
         modalButtonNo.style.display = "none";
       }
     }
 
-    // --- FUNGSI localStorage ---
+    // --- FUNGSI localStorage (Tetap sama) ---
     function saveProgress() {
+      // ... (kode sama) ...
       try {
         const progress = {
           currentFlashcards: currentFlashcards,
@@ -152,12 +146,12 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("Gagal menyimpan progres ke localStorage:", e);
       }
     }
-
     function clearProgress() {
+      // ... (kode sama) ...
       localStorage.removeItem(storageKey);
     }
-
     function loadProgress(onProgressLoaded) {
+      // ... (kode sama) ...
       const savedData = localStorage.getItem(storageKey);
       if (savedData) {
         showModal(
@@ -187,23 +181,24 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    // --- CORE APP FUNCTIONS ---
+    // --- CORE APP FUNCTIONS (Tetap sama) ---
     function shuffleArray(array) {
+      // ... (kode sama) ...
       for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
       }
     }
-
     function updateCounter() {
+      // ... (kode sama) ...
       if (learningMode === "bebas") {
         cardCounter.textContent = `${sessionProgress} / ${originalFlashcards.length}`;
       } else {
         cardCounter.textContent = `${correctAnswers} / ${originalFlashcards.length}`;
       }
     }
-
     function showCard(index) {
+      // ... (kode sama) ...
       if (currentFlashcards.length === 0) return;
       currentCardIndex =
         (index + currentFlashcards.length) % currentFlashcards.length;
@@ -216,25 +211,25 @@ document.addEventListener("DOMContentLoaded", () => {
         card.classList.remove("is-flipped");
       }
     }
-
     function toggleShuffle() {
+      // ... (kode sama) ...
       isShuffled = !isShuffled;
       shuffleButtonBebas.classList.toggle("active", isShuffled);
       shuffleButtonTest.classList.toggle("active", isShuffled);
       if (isShuffled) {
         shuffleArray(currentFlashcards);
       }
-      saveProgress(); // Simpan status shuffle
+      saveProgress();
     }
-
     function flipCard() {
+      // ... (kode sama) ...
       if (currentFlashcards.length > 0) {
         isFlipped = !isFlipped;
         card.classList.toggle("is-flipped");
       }
     }
-
     function transitionToCard(newIndex) {
+      // ... (kode sama) ...
       if (!appContainer.classList.contains("is-changing")) {
         appContainer.classList.add("is-changing");
         setTimeout(() => {
@@ -244,8 +239,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    // --- NAVIGATION LOGIC (The rest is the same as before) ---
+    // --- NAVIGATION LOGIC (Tetap sama) ---
     function nextCard() {
+      // ... (kode sama) ...
       if (learningMode !== "bebas" || currentFlashcards.length === 0) return;
       if (sessionProgress >= originalFlashcards.length) {
         clearProgress();
@@ -256,8 +252,8 @@ document.addEventListener("DOMContentLoaded", () => {
         saveProgress();
       }
     }
-
     function prevCard() {
+      // ... (kode sama) ...
       if (learningMode !== "bebas" || currentFlashcards.length === 0) return;
       if (sessionProgress > 1) {
         sessionProgress--;
@@ -265,24 +261,24 @@ document.addEventListener("DOMContentLoaded", () => {
       transitionToCard(currentCardIndex - 1);
       saveProgress();
     }
-
     function handleCorrect() {
+      // ... (kode sama) ...
       if (learningMode !== "test" || currentFlashcards.length === 0) return;
       correctAnswers++;
       currentFlashcards.splice(currentCardIndex, 1);
       saveProgress();
       checkTestRound();
     }
-
     function handleWrong() {
+      // ... (kode sama) ...
       if (learningMode !== "test" || currentFlashcards.length === 0) return;
       const wrongCard = currentFlashcards.splice(currentCardIndex, 1)[0];
       wrongPile.push(wrongCard);
       saveProgress();
       checkTestRound();
     }
-
     function checkTestRound() {
+      // ... (kode sama) ...
       if (currentFlashcards.length === 0) {
         if (wrongPile.length > 0) {
           currentFlashcards = [...wrongPile];
@@ -301,16 +297,17 @@ document.addEventListener("DOMContentLoaded", () => {
         transitionToCard(currentCardIndex);
       }
     }
-
     function handleThemeToggle() {
+      // ... (kode sama) ...
       const isDarkMode = document.body.classList.toggle("dark-mode");
       localStorage.setItem("theme", isDarkMode ? "dark" : "light");
       if (themeLabel)
         themeLabel.textContent = isDarkMode ? "Mode Terang" : "Mode Gelap";
     }
 
-    // --- Event Listeners ---
+    // --- Event Listeners (Tetap sama) ---
     document.addEventListener("keydown", (e) => {
+      // ... (kode sama) ...
       if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key))
         e.preventDefault();
       switch (e.key) {
@@ -326,8 +323,8 @@ document.addEventListener("DOMContentLoaded", () => {
           break;
       }
     });
-
     if (card) card.addEventListener("click", flipCard);
+    // ... (sisa event listener sama) ...
     if (themeToggle) themeToggle.addEventListener("change", handleThemeToggle);
     if (prevButtonSVG) prevButtonSVG.addEventListener("click", prevCard);
     if (nextButtonSVG) nextButtonSVG.addEventListener("click", nextCard);
@@ -339,25 +336,26 @@ document.addEventListener("DOMContentLoaded", () => {
     if (shuffleButtonTest)
       shuffleButtonTest.addEventListener("click", toggleShuffle);
 
-    // --- Initialize UI ---
+    // --- Initialize UI (Tetap sama) ---
     if (document.body.classList.contains("dark-mode")) {
+      // ... (kode sama) ...
       if (themeToggle) themeToggle.checked = true;
     }
     if (themeLabel) {
+      // ... (kode sama) ...
       themeLabel.textContent =
         themeToggle && themeToggle.checked ? "Mode Terang" : "Mode Gelap";
     }
 
-    // Coba muat progres, lalu inisialisasi sisanya
+    // --- Load Progress & Initialize (Tetap sama) ---
     loadProgress((progresDimuat) => {
+      // ... (kode sama) ...
       if (!progresDimuat) {
-        // Jika tidak ada progres, mulai sesi baru
         currentFlashcards = [...originalFlashcards];
         if (learningMode === "test") {
           shuffleArray(currentFlashcards);
         }
       }
-      // Tampilkan kartu (baik dari progres atau kartu pertama)
       updateCounter();
       showCard(currentCardIndex);
     });
