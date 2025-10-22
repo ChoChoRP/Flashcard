@@ -1,0 +1,21 @@
+{
+  "name": "Cho Flashcard",
+  "short_name": "ChoCard",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#f4f4f9",
+  "theme_color": "#888888",
+  "description": "Aplikasi flashcard untuk belajar kosakata Jepang.",
+  "icons": [
+    {
+      "src": "/img/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/img/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

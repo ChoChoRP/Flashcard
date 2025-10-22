@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>𒁍Kotoba</title>
+    <title>𒁍Kotoba Flashcard</title>
     <link rel="stylesheet" href="../style.css"> 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,7 +11,6 @@
 </head>
 <body>
 
-    <!-- REVISI: Skrip anti-flash ditambahkan di sini -->
     <script>
       (function() {
         const savedTheme = localStorage.getItem('theme');
@@ -35,28 +34,41 @@
     <div id="app" class="app-container">
         <div class="card-scene">
             <div class="card" id="flashcard">
-                <div class="card__face card__face--front" id="card-front"></div>
+                <div class="card__face card__face--front" id="card-front">Memuat Data...</div>
                 <div class="card__face card__face--back" id="card-back"></div>
             </div>
         </div>
 
-        <!-- STRUKTUR HTML YANG BENAR UNTUK KONTROL -->
         <div class="controls-container">
-            <div class="button-bar">
+            <div class="button-bar controls-bebas">
                 <div id="prev-button-svg" class="nav-btn-svg"><img src="../img/left.svg" alt="Sebelumnya"></div>
-                <div id="shuffle-button" class="shuffle-btn"><img src="../img/acak.svg" alt="Acak Kartu"></div>
+                <div id="shuffle-button-bebas" class="shuffle-btn"><img src="../img/acak.svg" alt="Acak Kartu"></div>
                 <div id="next-button-svg" class="nav-btn-svg"><img src="../img/right.svg" alt="Selanjutnya"></div>
+            </div>
+            <div class="button-bar controls-test">
+                <div id="wrong-button-svg" class="nav-btn-svg"><img src="../img/silang.svg" alt="Salah"></div>
+                <div id="shuffle-button-test" class="shuffle-btn"><img src="../img/acak.svg" alt="Acak Kartu"></div>
+                <div id="correct-button-svg" class="nav-btn-svg"><img src="../img/ceklis.svg" alt="Benar"></div>
             </div>
             <div class="card-counter" id="card-counter">0 / 0</div>
         </div>
-        <!-- AKHIR STRUKTUR KONTROL -->
 
         <div class="nav-instructions">
             <p>Gunakan Panah ← → untuk navigasi, dan ↑ ↓ untuk membalik kartu.</p>
         </div>
     </div>
 
-    <script src="../js/data_12.js"></script>
+    <!-- Modal Kustom (Pengganti Alert/Confirm) -->
+    <div id="custom-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <p id="modal-text" style="font-size: 1.2rem; margin-bottom: 2rem;">Teks modal default</p>
+            <div class="modal-buttons" style="flex-direction: row; justify-content: center;">
+                <button id="modal-button-yes" class="modal-button" style="min-width: 100px;">Ya</button>
+                <button id="modal-button-no" class="modal-button" style="min-width: 100px; margin-left: 1rem;">Tidak</button>
+            </div>
+        </div>
+    </div>
+
     <script src="../js/app.js"></script>
 </body>
 </html>
