@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="../style.css"> 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <!-- REVISI: Mengganti font 'Noto Sans JP' dengan 'Spectral' -->
+    <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -23,12 +24,12 @@
 
     <a href="../index.html" class="back-link">← Menu Utama</a>
 
+    <!-- REVISI: Teks mode gelap dihapus -->
     <div class="theme-switch-wrapper">
         <label class="theme-switch" for="checkbox">
             <input type="checkbox" id="checkbox" />
             <div class="slider round"></div>
         </label>
-        <!-- Teks mode gelap/terang dihapus -->
     </div>
 
     <div id="app" class="app-container">
@@ -40,13 +41,16 @@
         </div>
 
         <div class="controls-container">
+            <!-- Kontrol Mode Bebas -->
             <div class="button-bar controls-bebas">
                 <div id="prev-button-svg" class="nav-btn-svg"><img src="../img/left.svg" alt="Sebelumnya"></div>
                 <div id="shuffle-button-bebas" class="shuffle-btn"><img src="../img/acak.svg" alt="Acak Kartu"></div>
-                <!-- REVISI: Path gambar diperbaiki dari ../imgimg/ menjadi ../img/ -->
                 <div id="next-button-svg" class="nav-btn-svg"><img src="../img/right.svg" alt="Selanjutnya"></div>
             </div>
+            
+            <!-- Kontrol Mode Test (dengan tombol 'left') -->
             <div class="button-bar controls-test">
+                <div id="prev-button-svg-test" class="nav-btn-svg"><img src="../img/left.svg" alt="Sebelumnya"></div> 
                 <div id="wrong-button-svg" class="nav-btn-svg"><img src="../img/silang.svg" alt="Salah"></div>
                 <div id="shuffle-button-test" class="shuffle-btn"><img src="../img/acak.svg" alt="Acak Kartu"></div>
                 <div id="correct-button-svg" class="nav-btn-svg"><img src="../img/ceklis.svg" alt="Benar"></div>
@@ -55,7 +59,7 @@
         </div>
 
         <div class="nav-instructions">
-            <p>Gunakan Panah ← → untuk navigasi, dan ↑ ↓ untuk membalik kartu.</p>
+            <p>chotoba</p>
         </div>
     </div>
 

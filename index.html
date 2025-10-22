@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Cho 󠁯•󠁏󠁏 Flashcard</title>
+    <title>Chotoba</title>
     <link rel="stylesheet" href="style.css">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- REVISI: Mengganti font 'Inter' dengan 'Spectral' -->
+    <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
 </head>
 <body class="menu-page">
 
@@ -23,80 +23,78 @@
       })();
     </script>
 
+    <!-- REVISI: Teks mode gelap dihapus -->
     <div class="theme-switch-wrapper">
         <label class="theme-switch" for="checkbox">
             <input type="checkbox" id="checkbox" />
             <div class="slider round"></div>
         </label>
-        <!-- REVISI: Teks mode gelap/terang dihapus -->
-        <!-- <em id="theme-label">Mode Gelap</em> -->
     </div>
 
     <div class="menu-container">
-        <h1>𓆩CHO𓆪<BR>FLASHCARD</h1>
+        <h1>𓆩ChoToba𓆪</h1>
         
         <!-- Layout Kategori Dropdown -->
         <nav class="category-bar">
-            <!-- Dropdown N5 -->
+            <!-- Kategori N5 -->
             <div class="category-dropdown">
                 <button class="category-button">N5</button>
                 <div class="dropdown-content">
-                    <a data-bab="1">Bab 1</a>
-                    <a data-bab="2">Bab 2</a>
+                    <a data-bab="1" class="dropdown-link">Bab 1</a>
+                    <a data-bab="2" class="dropdown-link">Bab 2</a>
                 </div>
             </div>
             
-            <!-- Dropdown N4 -->
+            <!-- Kategori N4 -->
             <div class="category-dropdown">
                 <button class="category-button">N4</button>
                 <div class="dropdown-content">
-                    <a data-bab="3">Bab 1</a>
-                    <a data-bab="4">Bab 2</a>
+                    <a data-bab="3" class="dropdown-link">Bab 1</a>
+                    <a data-bab="4" class="dropdown-link">Bab 2</a>
                 </div>
             </div>
 
-            <!-- Dropdown N3 -->
+            <!-- Kategori N3 -->
             <div class="category-dropdown">
                 <button class="category-button">N3</button>
                 <div class="dropdown-content">
-                    <a data-bab="5">Bab 1</a>
-                    <a data-bab="6">Bab 2</a>
-                    <a data-bab="7">Bab 3</a>
-                    <a data-bab="8">Bab 4</a>
-                    <a data-bab="9">Bab 5</a>
-                    <a data-bab="10">Bab 6</a>
+                    <a data-bab="5" class="dropdown-link">Bab 1</a>
+                    <a data-bab="6" class="dropdown-link">Bab 2</a>
+                    <a data-bab="7" class="dropdown-link">Bab 3</a>
+                    <a data-bab="8" class="dropdown-link">Bab 4</a>
+                    <a data-bab="9" class="dropdown-link">Bab 5</a>
+                    <a data-bab="10" class="dropdown-link">Bab 6</a>
                 </div>
             </div>
 
-            <!-- Dropdown N2 -->
+            <!-- Kategori N2 -->
             <div class="category-dropdown">
                 <button class="category-button">N2</button>
                 <div class="dropdown-content">
-                    <a data-bab="11">Bab 1</a>
-                    <a data-bab="12">Bab 2</a>
-                    <a data-bab="13">Bab 3</a>
-                    <a data-bab="14">Bab 4</a>
-                    <a data-bab="15">Bab 5</a>
-                    <a data-bab="16">Bab 6</a>
+                    <a data-bab="11" class="dropdown-link">Bab 1</a>
+                    <a data-bab="12" class="dropdown-link">Bab 2</a>
+                    <a data-bab="13" class="dropdown-link">Bab 3</a>
+                    <a data-bab="14" class="dropdown-link">Bab 4</a>
+                    <a data-bab="15" class="dropdown-link">Bab 5</a>
+                    <a data-bab="16" class="dropdown-link">Bab 6</a>
                 </div>
             </div>
 
-            <!-- Dropdown N1 -->
+            <!-- Kategori N1 -->
             <div class="category-dropdown">
                 <button class="category-button">N1</button>
                 <div class="dropdown-content">
-                    <a data-bab="17">Bab 1</a>
-                    <a data-bab="18">Bab 2</a>
-                    <a data-bab="19">Bab 3</a>
-                    <a data-bab="20">Bab 4</a>
-                    <a data-bab="21">Bab 5</a>
-                    <a data-bab="22">Bab 6</a>
-                    <a data-bab="23">Bab 7</a>
-                    <a data-bab="24">Bab 8</a>
+                    <a data-bab="17" class="dropdown-link">Bab 1</a>
+                    <a data-bab="18" class="dropdown-link">Bab 2</a>
+                    <a data-bab="19" class="dropdown-link">Bab 3</a>
+                    <a data-bab="20" class="dropdown-link">Bab 4</a>
+                    <a data-bab="21" class="dropdown-link">Bab 5</a>
+                    <a data-bab="22" class="dropdown-link">Bab 6</a>
+                    <a data-bab="23" class="dropdown-link">Bab 7</a>
+                    <a data-bab="24" class="dropdown-link">Bab 8</a>
                 </div>
             </div>
         </nav>
-        
     </div>
 
     <!-- Modal Pemilihan Mode -->
@@ -113,36 +111,57 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Logika toggle tema (tanpa label)
             const themeToggle = document.getElementById('checkbox');
-            // REVISI: Hapus referensi ke themeLabel
-            // const themeLabel = document.getElementById('theme-label');
-
-            function handleThemeToggle() {
-                const isDarkMode = document.body.classList.toggle('dark-mode');
-                localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-                // REVISI: Hapus logika themeLabel
-                // if (themeLabel) themeLabel.textContent = isDarkMode ? "Mode Terang" : "Mode Gelap";
-            }
-            
             if (document.body.classList.contains('dark-mode')) {
                 if(themeToggle) themeToggle.checked = true;
             }
-            // REVISI: Hapus logika themeLabel
-            // if (themeLabel) themeLabel.textContent = themeToggle.checked ? "Mode Terang" : "Mode Gelap";
-            if(themeToggle) themeToggle.addEventListener('change', handleThemeToggle);
+            if(themeToggle) themeToggle.addEventListener('change', () => {
+                const isDarkMode = document.body.classList.toggle('dark-mode');
+                localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+            });
 
-            // Modal script
+            // Logika Dropdown
+            document.querySelectorAll('.category-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const dropdown = button.nextElementSibling;
+                    const allDropdowns = document.querySelectorAll('.dropdown-content');
+                    
+                    // Tutup dropdown lain
+                    allDropdowns.forEach(d => {
+                        if (d !== dropdown) {
+                            d.style.display = 'none';
+                        }
+                    });
+                    
+                    // Toggle dropdown yang diklik
+                    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+                });
+            });
+
+            // Tutup dropdown jika klik di luar
+            window.addEventListener('click', (e) => {
+                if (!e.target.matches('.category-button')) {
+                    document.querySelectorAll('.dropdown-content').forEach(d => {
+                        d.style.display = 'none';
+                    });
+                }
+            });
+
+            // Logika Modal
             const modal = document.getElementById('mode-modal');
             const modalClose = document.getElementById('modal-close');
             const modeBebasBtn = document.getElementById('mode-bebas');
             const modeTestBtn = document.getElementById('mode-test');
-            const menuButtons = document.querySelectorAll('.dropdown-content a'); // Target link di dalam dropdown
+            // REVISI: Target link di dalam dropdown
+            const menuLinks = document.querySelectorAll('.dropdown-link'); 
             let targetBab = '';
 
-            menuButtons.forEach(button => {
-                button.addEventListener('click', (e) => {
+            menuLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
                     e.preventDefault();
-                    targetBab = button.getAttribute('data-bab');
+                    e.stopPropagation(); // Hentikan event agar window.click tidak menutup dropdown
+                    targetBab = link.getAttribute('data-bab');
                     modal.style.display = 'flex';
                 });
             });
@@ -163,32 +182,6 @@
             modeTestBtn.addEventListener('click', () => {
                 window.location.href = `sesi/sesi.html?bab=${targetBab}&mode=test`;
             });
-
-            // Logika Dropdown Kategori
-            const categoryButtons = document.querySelectorAll('.category-button');
-
-            categoryButtons.forEach(button => {
-                button.addEventListener('click', function(event) {
-                    event.stopPropagation();
-                    const content = this.nextElementSibling;
-                    
-                    document.querySelectorAll('.dropdown-content.show').forEach(openDropdown => {
-                        if (openDropdown !== content) {
-                            openDropdown.classList.remove('show');
-                        }
-                    });
-                    
-                    content.classList.toggle('show');
-                });
-            });
-
-            window.onclick = function(event) {
-                if (!event.target.matches('.category-button')) {
-                    document.querySelectorAll('.dropdown-content.show').forEach(openDropdown => {
-                        openDropdown.classList.remove('show');
-                    });
-                }
-            }
         });
     </script>
     
