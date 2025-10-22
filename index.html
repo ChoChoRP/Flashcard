@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>Cho 󠁯•󠁏󠁏 Flashcard</title>
     <link rel="stylesheet" href="style.css">
     
@@ -27,13 +28,14 @@
             <input type="checkbox" id="checkbox" />
             <div class="slider round"></div>
         </label>
-        <em id="theme-label">Mode Gelap</em>
+        <!-- REVISI: Teks mode gelap/terang dihapus -->
+        <!-- <em id="theme-label">Mode Gelap</em> -->
     </div>
 
     <div class="menu-container">
         <h1>𓆩CHO𓆪<BR>FLASHCARD</h1>
         
-        <!-- REVISI: Layout Kategori Dropdown Baru -->
+        <!-- Layout Kategori Dropdown -->
         <nav class="category-bar">
             <!-- Dropdown N5 -->
             <div class="category-dropdown">
@@ -94,11 +96,10 @@
                 </div>
             </div>
         </nav>
-        <!-- AKHIR REVISI LAYOUT -->
         
     </div>
 
-    <!-- Modal Pemilihan Mode (Tidak berubah) -->
+    <!-- Modal Pemilihan Mode -->
     <div id="mode-modal" class="modal-overlay" style="display: none;">
         <div class="modal-content">
             <h3>Pilih Mode Belajar</h3>
@@ -113,27 +114,29 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const themeToggle = document.getElementById('checkbox');
-            const themeLabel = document.getElementById('theme-label');
+            // REVISI: Hapus referensi ke themeLabel
+            // const themeLabel = document.getElementById('theme-label');
 
             function handleThemeToggle() {
                 const isDarkMode = document.body.classList.toggle('dark-mode');
                 localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-                if (themeLabel) themeLabel.textContent = isDarkMode ? "Mode Terang" : "Mode Gelap";
+                // REVISI: Hapus logika themeLabel
+                // if (themeLabel) themeLabel.textContent = isDarkMode ? "Mode Terang" : "Mode Gelap";
             }
             
             if (document.body.classList.contains('dark-mode')) {
                 if(themeToggle) themeToggle.checked = true;
             }
-            if (themeLabel) themeLabel.textContent = themeToggle.checked ? "Mode Terang" : "Mode Gelap";
+            // REVISI: Hapus logika themeLabel
+            // if (themeLabel) themeLabel.textContent = themeToggle.checked ? "Mode Terang" : "Mode Gelap";
             if(themeToggle) themeToggle.addEventListener('change', handleThemeToggle);
 
-            // --- REVISI: Logika Modal (Selector diubah) ---
+            // Modal script
             const modal = document.getElementById('mode-modal');
             const modalClose = document.getElementById('modal-close');
             const modeBebasBtn = document.getElementById('mode-bebas');
             const modeTestBtn = document.getElementById('mode-test');
-            // Ganti selector dari .menu-button ke .dropdown-content a
-            const menuButtons = document.querySelectorAll('.dropdown-content a'); 
+            const menuButtons = document.querySelectorAll('.dropdown-content a'); // Target link di dalam dropdown
             let targetBab = '';
 
             menuButtons.forEach(button => {
@@ -161,27 +164,24 @@
                 window.location.href = `sesi/sesi.html?bab=${targetBab}&mode=test`;
             });
 
-            // --- TAMBAHAN: Logika untuk Dropdown Kategori ---
+            // Logika Dropdown Kategori
             const categoryButtons = document.querySelectorAll('.category-button');
 
             categoryButtons.forEach(button => {
                 button.addEventListener('click', function(event) {
-                    event.stopPropagation(); // Mencegah window.onclick di bawah
+                    event.stopPropagation();
                     const content = this.nextElementSibling;
                     
-                    // Tutup dropdown lain yang mungkin terbuka
                     document.querySelectorAll('.dropdown-content.show').forEach(openDropdown => {
                         if (openDropdown !== content) {
                             openDropdown.classList.remove('show');
                         }
                     });
                     
-                    // Toggle dropdown saat ini
                     content.classList.toggle('show');
                 });
             });
 
-            // Klik di luar dropdown akan menutupnya
             window.onclick = function(event) {
                 if (!event.target.matches('.category-button')) {
                     document.querySelectorAll('.dropdown-content.show').forEach(openDropdown => {

@@ -100,7 +100,7 @@ body.menu-page {
     display: none; /* Sembunyi by default */
     position: absolute;
     background-color: var(--card-bg-color);
-    min-width: 160px;
+    width: 100%; /* REVISI: Lebar 100% dari parent (tombol) */
     box-shadow: 0 8px 16px 0px var(--shadow-color);
     border-radius: 8px;
     z-index: 10;
@@ -207,7 +207,8 @@ body.menu-page {
 }
 .back-link { position: absolute; top: 25px; left: 25px; font-size: 1rem; font-weight: 700; color: var(--primary-color); text-decoration: none; z-index: 20; background: var(--bg-color); padding: 8px 12px; border-radius: 8px; transition: background-color 0.3s ease; }
 .theme-switch-wrapper { position: absolute; top: 20px; right: 20px; z-index: 10; display: flex; align-items: center; }
-.theme-switch-wrapper em { margin-left: 10px; font-size: 1rem; color: var(--text-color); }
+/* REVISI: Hapus style untuk teks 'em' karena elemennya dihapus */
+/* .theme-switch-wrapper em { margin-left: 10px; font-size: 1rem; color: var(--text-color); } */
 .theme-switch { position: relative; display: inline-block; width: 50px; height: 26px; }
 .theme-switch input { opacity: 0; width: 0; height: 0; }
 .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; }
@@ -320,4 +321,5 @@ body.dark-mode .shuffle-btn.active img { filter: none; }
      background-color: var(--primary-color);
      color: var(--bg-color);
 }
+
 
