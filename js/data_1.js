@@ -1,10 +1,4 @@
-// Ini adalah file data untuk Sesi 1
-// Gunakan tanda backtick ` di awal dan akhir
-// Format: Kanji,Hiragana,Definisi,Level
-// Baris yang diawali titik-koma (;) akan diabaikan.
-
 const dataString = `
-;Contoh Data Sesi 1
 ああ,ああ,"Ah!, Oh!",N5
 会う,あう,"bertemu, melihat",N5
 青,あお,biru,N5
